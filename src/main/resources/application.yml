@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: inventory
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  couchbase:
+    connection-string: couchbase:11210
+    username: Administrator
+    password: password
+  data:
+    couchbase:
+      bucket-name: inventory-bucket
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
