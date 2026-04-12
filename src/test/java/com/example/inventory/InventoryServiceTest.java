@@ -1,23 +1,22 @@
 package com.example.inventory;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = InventoryService.class)
 class InventoryServiceTest {
 
-    @Mock
+    @MockitoBean
     private InventoryRepository repository;
 
-    @InjectMocks
+    @Autowired
     private InventoryService service;
 
     @Test
