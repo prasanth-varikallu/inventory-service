@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: inventory-service
   kafka:
     bootstrap-servers: kafka:9092
     consumer:
@@ -21,8 +23,14 @@ spring:
       bucket-name: inventory-bucket
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: "http://zipkin:9411/api/v2/spans"
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,prometheus
 
