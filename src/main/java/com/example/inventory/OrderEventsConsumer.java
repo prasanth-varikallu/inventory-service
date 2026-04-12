@@ -38,13 +38,15 @@ public class OrderEventsConsumer {
 
   private void processOrder(OrderCreatedEvent event) {
     inventoryService.reserve(event.sku(), event.qty())
-        .flatMap(reserved -> {
+        .flatMap(stockLevel -> {
+          boolean reserved = stockLevel >= 0;
           String outcomeType = reserved ? "InventoryReserved" : "InventoryOutOfStock";
           InventoryOutcomeEvent outcome = new InventoryOutcomeEvent(
               outcomeType,
               event.orderId(),
               event.sku(),
               event.qty(),
+              stockLevel,
               Instant.now().toString()
           );
           try {

@@ -5,5 +5,6 @@ public record InventoryOutcomeEvent(
     String orderId,
     String sku,
     int qty,
+    int stock,
     String ts
 ) {}

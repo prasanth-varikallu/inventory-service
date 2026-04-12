@@ -11,16 +11,17 @@ public class InventoryService {
         this.repository = repository;
     }
 
-    public Mono<Boolean> reserve(String sku, int qty) {
+    public Mono<Integer> reserve(String sku, int qty) {
         return repository.findById(sku)
             .flatMap(inv -> {
                 if (inv.stock() >= qty) {
-                    return repository.save(inv.withStock(inv.stock() - qty))
-                        .thenReturn(true);
+                    int newStock = inv.stock() - qty;
+                    return repository.save(inv.withStock(newStock))
+                        .thenReturn(newStock);
                 } else {
-                    return Mono.just(false);
+                    return Mono.just(-1);
                 }
             })
-            .defaultIfEmpty(false);
+            .defaultIfEmpty(-2); // -2 means not found
     }
 }
