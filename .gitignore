@@ -1,3 +1,7 @@
 target/
 .idea/
 .junie/
+.mvn
+mvnw.cmd
+mvnw
+inventory-service.iml
